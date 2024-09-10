@@ -1,11 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
-typedef struct{
-int annee;
-int mois;
-int jour;
-}date;
+typedef struct {
+    int annee;
+    int mois;
+    int jour;
+} date;
 
 typedef struct {
     int id;
@@ -14,11 +15,11 @@ typedef struct {
     date date_de_naissance;
     char departement[50];
     float moyenne_general;
+} Etudient;
 
-}Etudient;
-
-int c=0;
-int choise,a,m,j; float n;
+int c = 0;
+int choix, a, m, j, i;
+float n;
 Etudient T[1000];
 
 int date_valide(int annee, int mois, int jour) {
@@ -35,254 +36,414 @@ int date_valide(int annee, int mois, int jour) {
     return 1;
 }
 
- void ajouter_etudient(){
+void ajouter_etudient() {
+    printf("Entrer L'ID  de L'etudient: ");
+    scanf("%d", &T[c].id);
 
-     printf("Entrer L'ID  de L'etudient: ");
-     scanf("%d",&T[c].id);
+    printf("Entrer le nom de L'etudient : ");
+    scanf(" %[^\n]s", T[c].nom);
 
-     printf("Entrer le nom de L'etudient : ");
-     scanf("%[^\n]s",T[c].nom);
+    printf("Entrer le Prenom de L'etudient : ");
+    scanf(" %[^\n]s", T[c].prenom);
 
-     printf("Entrer le Prenom de L'etudient : ");
-     scanf("%[^\n]s",T[c].prenom);
-
-     printf("Entrer la date de naissance  de L'etudient: ");
-     printf("Entrer l'annee : ");
-     scanf("%d",&a);
-      do{
-         if(a <= 2007){
+    printf("Entrer la date de naissance  de L'etudient: ");
+    printf("Entrer l'annee : ");
+    scanf("%d", &a);
+    do {
+        if (a <= 2007) {
             T[c].date_de_naissance.annee = a;
-            }else {
-                printf("L'etudient doit etre +18ans pour entrer a l'universite !");
-            }
-     }while(a>2007);
+        } else {
+            printf("L'etudient doit etre +18ans pour entrer a l'universite !\n");
+            scanf("%d", &a);
+        }
+    } while (a > 2007);
 
-     printf("Entrer le mois : ");
-     scanf("%d",&m);
-      do{
-         if(m>=1 && m<=12){
+    printf("Entrer le mois : ");
+    scanf("%d", &m);
+    do {
+        if (m >= 1 && m <= 12) {
             T[c].date_de_naissance.mois = m;
-            }else {
-                printf("Le Mois doit etre Entre 1 et 12");
-                 scanf("%d",&m);
-            }
-     }while(m<1 && m>12);
+        } else {
+            printf("Le Mois doit etre Entre 1 et 12\n");
+            scanf("%d", &m);
+        }
+    } while (m < 1 || m > 12);
 
-     printf("Entrer le jour : ");
-     scanf("%d",&j);
-     do{
-        if(date_valide(T[c].date_de_naissance.annee,T[c].date_de_naissance.mois,j)){
+    printf("Entrer le jour : ");
+    scanf("%d", &j);
+    do {
+        if (date_valide(T[c].date_de_naissance.annee, T[c].date_de_naissance.mois, j)==1) {
             T[c].date_de_naissance.jour = j;
-            }else {
-                printf("Le jour incorrect !");
-                 scanf("%d",&j);
-            }
-     }while(date_valide(T[c].date_de_naissance.annee,T[c].date_de_naissance.mois,j)==0);
-
-     printf("Entrer la departement de L'etudient : 1- Math 2- Informatique 3- Economie 4-Comptabilite ");
-     scanf("%d",&choise);
-
-     do{
-
-        if(i==1){
-            strcpy(T[c].departement,"Math");
+        } else {
+            printf("Le jour incorrect !\n");
+            scanf("%d", &j);
         }
-        if(choise == 2){
-        strcpy(T[c].departement,"Informatique");
-     }
-     if (choise == 3){
-        strcpy(T[c].departement,"Economie");
-     }
-     if(choise == 4){
-        strcpy(T[c].departement,"Comptabilite");
-     }
-     else{
-        Printf("Entrer un nombre entre 1 et 4 ! \n");
-     }
+    } while (!date_valide(T[c].date_de_naissance.annee, T[c].date_de_naissance.mois, j));
 
-     }while(choise != 1 && choise != 2 && choise != 3 && choise != 1);
+    printf("Entrer la departement de L'etudient : 1- Math 2- Informatique 3- Economie 4-Comptabilite ");
+    scanf("%d", &choix);
+    do {
+        if (choix == 1) {
+            strcpy(T[c].departement, "Math");
+        } else if (choix == 2) {
+            strcpy(T[c].departement, "Informatique");
+        } else if (choix == 3) {
+            strcpy(T[c].departement, "Economie");
+        } else if (choix == 4) {
+            strcpy(T[c].departement, "Comptabilite");
+        } else {
+            printf("Entrer un nombre entre 1 et 4 ! \n");
+        }
+    } while (choix < 1 || choix > 4);
 
-        printf("Entrer la note general de l'etudient : ");
-        scanf("%f",&n);
+    printf("Entrer la note general de l'etudient : ");
+    scanf("%f", &n);
+    do {
+        if (n >= 0 && n <= 20) {
+            T[c].moyenne_general = n;
+        } else {
+            printf("La moyenne general doit etre entre 0 et 20 !\n");
+            scanf("%f", &n);
+        }
+    } while (n < 0 || n > 20);
 
-        do {
-            if(n>=0 && n<=20){
-                    T[c].moyenne_general = n;
+    c++;
+}
 
-            }
-            else {
-                Printf("La moyenne general doit etre entre 0 et 20 !\n");
-                scanf("%f",&n);
-            }
-        }while(n<0 && n>20);
-
-
-     c++;
- }
-
- void ajouter_des_etudients(){
-   printf("combien de etudient tu veux saisir : ");
-   int m;
-   scanf("%d",&m);
-   for(int i=0;i<m;i++){
-    ajouter_etudient();
+void ajouter_des_etudients() {
+    printf("Combien d'etudiants veux-tu saisir : ");
+    int m;
+    scanf("%d", &m);
+    for (int i = 0; i < m; i++) {
+        ajouter_etudient();
     }
- }
+}
 
+void afficher_etudient(int indice) {
+    printf("L'id d'etudient : %d\n", T[indice].id);
+    printf("Le nom d'etudient : %s\n", T[indice].nom);
+    printf("Le prenom d'etudient : %s\n", T[indice].prenom);
+    printf("La date de naissance d'etudient : %d - %d - %d\n", T[indice].date_de_naissance.annee, T[indice].date_de_naissance.mois, T[indice].date_de_naissance.jour);
+    printf("La departement d'etudient : %s\n", T[indice].departement);
+    printf("La note general d'etudient : %.2f\n", T[indice].moyenne_general);
+}
 
- void afficher_etudient(int indice){
+void afficher_tout_etudient() {
+    for (int i = 0; i < c; i++) {
+        afficher_etudient(i);
+    }
+}
 
-        printf("L'id d'etudient : %d\n",T[i].id);
-        printf("Le nom d'etudient : %s\n",T[i].nom);
-        printf("Le prenom d'etudient : %s\n",T[i].prenom);
-        printf("La date de naissance d'etudient : %d - %d - %d\n",T[i].date_de_naissance.annee,T[i].date_de_naissance.mois,T[i].date_de_naissance.jour);
-        printf("La departement d'etudient : %s\n",T[i].departement);
-        printf("La note general d'etudient : %s\n",T[i].moyenne_general);
+void modifier_etudient() {
+    int d;
+    printf("Entrer l'id d'etudient a modifier : ");
+    scanf("%d", &d);
+    for (i = 0; i < c; i++) {
+        if (T[i].id == d) {
+            printf("Entrer le nouveau id : ");
+            scanf("%d", &T[i].id);
 
- }
+            printf("Entrer le nouveau nom : ");
+            scanf(" %[^\n]s", T[i].nom);
 
- void afficher_tout_etudient(){
-   for(int i=0;i<c;i++){
-     afficher_etudient(i);
-   }
- }
+            printf("Entrer le nouveau prenom : ");
+            scanf(" %[^\n]s", T[i].prenom);
 
-void Modifer_etudient(){
-     int d;
+            printf("Entrer la nouvelle date de naissance : ");
+            printf("Entrer l'annee : ");
+            scanf("%d", &a);
+            do {
+                if (a <= 2007) {
+                    T[i].date_de_naissance.annee = a;
+                } else {
+                    printf("L'etudient doit etre +18ans pour entrer a l'universite !\n");
+                    scanf("%d",&a);
+                }
+            } while (a > 2007);
 
-     printf("Entrer l'id d'etudient a modifier : ");
-     scanf("%d",&d);
-
-     for(i=0;i<c;i++){
-        if(T[i].id==d){
-
-           printf("Entrer le nouveau id : ");
-           scanf("%d",&T[i].id);
-
-           printf("Entrer le nouveau nom : ");
-           scanf("%[^\n]s",T[i].nom);
-
-           printf("Entrer le nouveau prenom : ");
-           scanf("%[^\n]s",T[i].prenom);
-
-           printf("Entrer le nouvelle sate de naissance : ");
-           printf("Entrer l'annee : ");
-           scanf("%d",&a);
-            do{
-              if(a <= 2007){
-               T[i].date_de_naissance.annee = a;
-                  }else {
-                printf("L'etudient doit etre +18ans pour entrer a l'universite !");
-                    }
-              }while(a>2007);
-
-
-           printf("Entrer le mois : ");
-            scanf("%d",&m);
-                do{
-                  if(m>=1 && m<=12){
+            printf("Entrer le mois : ");
+            scanf("%d", &m);
+            do {
+                if (m >= 1 && m <= 12) {
                     T[i].date_de_naissance.mois = m;
-                   }else {
-                      printf("Le Mois doit etre Entre 1 et 12");
-                       scanf("%d",&m);
-                     }
-                     }while(m<1 && m>12);
+                } else {
+                    printf("Le Mois doit etre Entre 1 et 12\n");
+                    scanf("%d", &m);
+                }
+            } while (m < 1 || m > 12);
 
-
-           printf("Entrer le jour : ");
-            scanf("%d",&j);
-                do{
-                if(date_valide(T[i].date_de_naissance.annee,T[i].date_de_naissance.mois,j)){
+            printf("Entrer le jour : ");
+            scanf("%d", &j);
+            do {
+                if (date_valide(T[i].date_de_naissance.annee, T[i].date_de_naissance.mois, j)) {
                     T[i].date_de_naissance.jour = j;
-                 }else {
-                     printf("Le jour incorrect !");
-                     scanf("%d",&j);
-                        }
-                    }while(date_valide(T[i].date_de_naissance.annee,T[i].date_de_naissance.mois,j)==0);
+                } else {
+                    printf("Le jour incorrect !\n");
+                    scanf("%d", &j);
+                }
+            } while (!date_valide(T[i].date_de_naissance.annee, T[i].date_de_naissance.mois, j));
 
+            printf("Entrer la departement de L'etudient : 1- Math 2- Informatique 3- Economie 4-Comptabilite ");
+            scanf("%d", &choix);
+            do {
+                if (choix == 1) {
+                    strcpy(T[i].departement, "Math");
+                } else if (choix == 2) {
+                    strcpy(T[i].departement, "Informatique");
+                } else if (choix == 3) {
+                    strcpy(T[i].departement, "Economie");
+                } else if (choix == 4) {
+                    strcpy(T[i].departement, "Comptabilite");
+                } else {
+                    printf("Entrer un nombre entre 1 et 4 ! \n");
+                }
+            } while (choix < 1 || choix > 4);
 
-           printf("Entrer la departement de L'etudient : 1- Math 2- Informatique 3- Economie 4-Comptabilite ");
-           scanf("%d",&choise);
-            do{
-
-             if(i==1){
-            strcpy(T[c].departement,"Math");
-               }
-             if(choise == 2){
-             strcpy(T[c].departement,"Informatique");
-              }
-             if (choise == 3){
-             strcpy(T[c].departement,"Economie");
-                 }
-            if(choise == 4){
-             strcpy(T[c].departement,"Comptabilite");
-             }
-            else{
-             Printf("Entrer un nombre entre 1 et 4 ! \n");
-             }
-           }while(choise != 1 && choise != 2 && choise != 3 && choise != 1);
-
-
-           printf(" Entrer la nouvelle note general : ");
-           scanf("%f",&n);
-             do {
-            if(n>=0 && n<=20){
-                    T[c].moyenne_general = n;
-
-            }
-            else {
-                Printf("La moyenne general doit etre entre 0 et 20 !\n");
-                scanf("%f",&n);
-            }
-            }while(n<0 && n>20);
-
+            printf("Entrer la nouvelle note general : ");
+            scanf("%f", &n);
+            do {
+                if (n >= 0 && n <= 20) {
+                    T[i].moyenne_general = n;
+                } else {
+                    printf("La moyenne general doit etre entre 0 et 20 !\n");
+                    scanf("%f", &n);
+                }
+            } while (n < 0 || n > 20);
         }
-     }
+    }
 }
 
-void supprimer_etudient(){
-
-     int d;
-     printf("Entrer l'id d'etudient a modifier : ");
-     scanf("%d",&d);
-     for(i=0;i<c-1;i++){
-        if(T[i].id==d){
-                T[i]=T[i+1];
+void supprimer_etudient() {
+    int d;
+    printf("Entrer l'id d'etudient a supprimer : ");
+    scanf("%d", &d);
+    for (i = 0; i < c; i++) {
+        if (T[i].id == d) {
+            for (int j = i; j < c - 1; j++) {
+                T[j] = T[j + 1];
+            }
+            c--;
+            break;
         }
-     }
+    }
 }
 
-void moyene_general_departament(){
-    int moyenne_math=0,conteur_math=0,moyenne_informatique=0,conteur_informatique=0;
-    int moyenne_economie=0,conteur_economie=0,moyenne_comptabilite=0,conteur_comptabilite=0;
-     for(int i=0;i<c;i++){
-            if(strcmp(T[i].departement,"Math")==0){
-                conteur_math += 1;
-                moyenne_math=moyenne_math+T[i].moyenne_general;
+void tri_moyenne() {
+    Etudient tmp;
+    for (int i = 0; i < c - 1; i++) {
+        for (int j = i + 1; j < c; j++) {
+            if (T[i].moyenne_general < T[j].moyenne_general) {
+                tmp = T[i];
+                T[i] = T[j];
+                T[j] = tmp;
             }
-            if(strcmp(T[i].departement,"Informatique")==0){
-                conteur_informatique += 1;
-                moyenne_informatique=moyenne_informatique+T[i].moyenne_general;
-            }
-            if(strcmp(T[i].departement,"Economie")==0){
-                conteur_economie += 1;
-                moyenne_economie=moyenne_economie+T[i].moyenne_general;
-            }
-            if(strcmp(T[i].departement,"Comptabilite")==0){
-                conteur_comptabilite += 1;
-                moyenne_comptabilite=moyenne_comptabilite+T[i].moyenne_general;
-            }
-
-     }
-     printf("La moyenne general de la departement de math est %d\n";moyenne_math/conteur_math);
-     printf("La moyenne general de la departement de Informatique est %d\n";moyenne_informatique/conteur_informatique);
-     printf("La moyenne general de la departement de Economie est %d\n";moyenne_economie/conteur_economie);
-     printf("La moyenne general de la departement de Comptabilite est %d\n";moyenne_comptabilite/conteur_comptabilite);
+        }
+    }
 }
 
+void tri_nom_AZ() {
+    Etudient tmp;
+    for (int i = 0; i < c - 1; i++) {
+        for (int j = i + 1; j < c; j++) {
+            if (strcmp(T[i].nom, T[j].nom) > 0) {
+                tmp = T[i];
+                T[i] = T[j];
+                T[j] = tmp;
+            }
+        }
+    }
+}
 
-int main()
-{
+void tri_nom_ZA() {
+    Etudient tmp;
+    for (int i = 0; i < c - 1; i++) {
+        for (int j = i + 1; j < c; j++) {
+            if (strcmp(T[i].nom, T[j].nom) < 0) {
+                tmp = T[i];
+                T[i] = T[j];
+                T[j] = tmp;
+            }
+        }
+    }
+}
 
-    return 0;
+void moyenne_general_departament() {
+    float moyenne_math = 0, conteur_math = 0;
+    float moyenne_informatique = 0, conteur_informatique = 0;
+    float moyenne_economie = 0, conteur_economie = 0;
+    float moyenne_comptabilite = 0, conteur_comptabilite = 0;
+
+    for (int i = 0; i < c; i++) {
+        if (strcmp(T[i].departement, "Math") == 0) {
+            conteur_math += 1;
+            moyenne_math += T[i].moyenne_general;
+        }
+        if (strcmp(T[i].departement, "Informatique") == 0) {
+            conteur_informatique += 1;
+            moyenne_informatique += T[i].moyenne_general;
+        }
+        if (strcmp(T[i].departement, "Economie") == 0) {
+            conteur_economie += 1;
+            moyenne_economie += T[i].moyenne_general;
+        }
+        if (strcmp(T[i].departement, "Comptabilite") == 0) {
+            conteur_comptabilite += 1;
+            moyenne_comptabilite += T[i].moyenne_general;
+        }
+    }
+
+    if (conteur_math > 0) printf("La moyenne general de la departement de Math est %.2f\n", moyenne_math / conteur_math);
+    if (conteur_informatique > 0) printf("La moyenne general de la departement d'Informatique est %.2f\n", moyenne_informatique / conteur_informatique);
+    if (conteur_economie > 0) printf("La moyenne general de la departement d'Economie est %.2f\n", moyenne_economie / conteur_economie);
+    if (conteur_comptabilite > 0) printf("La moyenne general de la departement de Comptabilite est %.2f\n", moyenne_comptabilite / conteur_comptabilite);
+}
+
+void afficher_nbr_etudient() {
+    printf("Le nombre total d'etudiants dans l'université est : %d\n", c);
+}
+
+void affiche_nbr_etudient_departement() {
+    int conteur_math = 0, conteur_informatique = 0, conteur_economie = 0, conteur_comptabilite = 0;
+    for (int i = 0; i < c; i++) {
+        if (strcmp(T[i].departement, "Math") == 0) {
+            conteur_math += 1;
+        }
+        if (strcmp(T[i].departement, "Informatique") == 0) {
+            conteur_informatique += 1;
+        }
+        if (strcmp(T[i].departement, "Economie") == 0) {
+            conteur_economie += 1;
+        }
+        if (strcmp(T[i].departement, "Comptabilite") == 0) {
+            conteur_comptabilite += 1;
+        }
+    }
+    printf("Nombre d'etudiants dans la departement de Math : %d\n", conteur_math);
+    printf("Nombre d'etudiants dans la departement d'Informatique : %d\n", conteur_informatique);
+    printf("Nombre d'etudiants dans la departement d'Economie : %d\n", conteur_economie);
+    printf("Nombre d'etudiants dans la departement de Comptabilite : %d\n", conteur_comptabilite);
+}
+
+void affiche_etudient_seuil() {
+    float seuil;
+    printf("Entrer le seuil : ");
+    scanf("%f", &seuil);
+    for (int i = 0; i < c; i++) {
+        if (T[i].moyenne_general >= seuil) {
+            afficher_etudient(i);
+        }
+    }
+}
+
+void affiche_3_etudiants() {
+    tri_moyenne();
+    if (c > 0) {
+        printf("L'Etudiant 1 : %s %s %.2f\n", T[0].nom, T[0].prenom, T[0].moyenne_general);
+    }
+    if (c > 1) {
+        printf("L'Etudiant 2 : %s %s %.2f\n", T[1].nom, T[1].prenom, T[1].moyenne_general);
+    }
+    if (c > 2) {
+        printf("L'Etudiant 3 : %s %s %.2f\n", T[2].nom, T[2].prenom, T[2].moyenne_general);
+    }
+}
+
+void affiche_etudient_reussi() {
+    int conteur_math = 0, conteur_informatique = 0, conteur_economie = 0, conteur_comptabilite = 0;
+    for (int i = 0; i < c; i++) {
+        if (strcmp(T[i].departement, "Math") == 0 && T[i].moyenne_general >= 10) {
+            conteur_math += 1;
+        }
+        if (strcmp(T[i].departement, "Informatique") == 0 && T[i].moyenne_general >= 10) {
+            conteur_informatique += 1;
+        }
+        if (strcmp(T[i].departement, "Economie") == 0 && T[i].moyenne_general >= 10) {
+            conteur_economie += 1;
+        }
+        if (strcmp(T[i].departement, "Comptabilite") == 0 && T[i].moyenne_general >= 10) {
+            conteur_comptabilite += 1;
+        }
+    }
+    printf("Nombre d'etudiants reussis dans la departement de Math : %d\n", conteur_math);
+    printf("Nombre d'etudiants reussis dans la departement d'Informatique : %d\n", conteur_informatique);
+    printf("Nombre d'etudiants reussis dans la departement d'Economie : %d\n", conteur_economie);
+    printf("Nombre d'etudiants reussis dans la departement de Comptabilite : %d\n", conteur_comptabilite);
+}
+
+void afficher_etudient_10() {
+    for (int i = 0; i < c; i++) {
+        if (T[i].moyenne_general >= 10) {
+            afficher_etudient(i);
+        }
+    }
+}
+void supprimercmd(){
+   system("pause");
+   system("cls");
+}
+
+int main() {
+    int choix;
+
+    while (1) {
+        printf("Menu :\n");
+        printf("1. Ajouter des étudiants\n");
+        printf("2. Modifier un étudiant\n");
+        printf("3. Supprimer un étudiant\n");
+        printf("4. Afficher tous les étudiants\n");
+        printf("5. Afficher les étudiants ayant une moyenne au-dessus d'un seuil\n");
+        printf("6. Afficher les 3 meilleurs étudiants\n");
+        printf("7. Afficher les moyennes générales par département\n");
+        printf("8. Afficher le nombre total d'étudiants\n");
+        printf("9. Afficher le nombre d'étudiants par département\n");
+        printf("10. Afficher les étudiants ayant une moyenne >= 10\n");
+        printf("11. Afficher le nombre d'étudiants ayant réussi par département\n");
+        printf("0. Quitter\n");
+        printf("Entrez votre choix : ");
+        scanf("%d", &choix);
+
+        switch (choix) {
+            case 1:
+                ajouter_des_etudients();
+                break;
+            case 2:
+                modifier_etudient();
+                break;
+            case 3:
+                supprimer_etudient();
+                break;
+            case 4:
+                afficher_tout_etudient();
+                break;
+            case 5:
+                affiche_etudient_seuil();
+                break;
+            case 6:
+                affiche_3_etudiants();
+                break;
+            case 7:
+                moyenne_general_departament();
+                break;
+            case 8:
+                afficher_nbr_etudient();
+                break;
+            case 9:
+                affiche_nbr_etudient_departement();
+                break;
+            case 10:
+                afficher_etudient_10();
+                break;
+            case 11:
+                affiche_etudient_reussi();
+                break;
+            case 0:
+                return 0;
+            default:
+                printf("Choix invalide !\n");
+                break;
+        }
+        supprimercmd();
+    }
+
+    return 0;
 }
