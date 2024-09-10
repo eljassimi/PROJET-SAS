@@ -106,7 +106,6 @@ void ajouter_etudient() {
             scanf("%f", &n);
         }
     } while (n < 0 || n > 20);
-
     c++;
 }
 
@@ -228,7 +227,7 @@ void supprimer_etudient() {
     }
 }
 
-void tri_moyenne() {
+void tri_moyenne(){
     Etudient tmp;
     for (int i = 0; i < c - 1; i++) {
         for (int j = i + 1; j < c; j++) {
@@ -241,7 +240,7 @@ void tri_moyenne() {
     }
 }
 
-void tri_nom_AZ() {
+void tri_nom_AZ(){
     Etudient tmp;
     for (int i = 0; i < c - 1; i++) {
         for (int j = i + 1; j < c; j++) {
@@ -254,7 +253,7 @@ void tri_nom_AZ() {
     }
 }
 
-void tri_nom_ZA() {
+void tri_nom_ZA(){
     Etudient tmp;
     for (int i = 0; i < c - 1; i++) {
         for (int j = i + 1; j < c; j++) {
@@ -383,21 +382,16 @@ void supprimercmd(){
 }
 
 int main() {
-    int choix;
+    int choix,ch;
 
     while (1) {
         printf("Menu :\n");
-        printf("1. Ajouter des étudiants\n");
-        printf("2. Modifier un étudiant\n");
-        printf("3. Supprimer un étudiant\n");
-        printf("4. Afficher tous les étudiants\n");
-        printf("5. Afficher les étudiants ayant une moyenne au-dessus d'un seuil\n");
-        printf("6. Afficher les 3 meilleurs étudiants\n");
-        printf("7. Afficher les moyennes générales par département\n");
-        printf("8. Afficher le nombre total d'étudiants\n");
-        printf("9. Afficher le nombre d'étudiants par département\n");
-        printf("10. Afficher les étudiants ayant une moyenne >= 10\n");
-        printf("11. Afficher le nombre d'étudiants ayant réussi par département\n");
+        printf("1.  Ajouter des etudiants\n");
+        printf("2.  Modifier un etudiant\n");
+        printf("3.  Supprimer un etudiant\n");
+        printf("4.  Afficher tous les etudiants\n");
+        printf("5.  Les Fonction de Statistique\n");
+        printf("6.  Les Fonction de Triage\n");
         printf("0. Quitter\n");
         printf("Entrez votre choix : ");
         scanf("%d", &choix);
@@ -416,28 +410,57 @@ int main() {
                 afficher_tout_etudient();
                 break;
             case 5:
+                 printf("1.  Afficher les etudiants ayant une moyenne au dessu d'un seuil\n");
+                 printf("2.  Afficher les 3 meilleurs etudiants\n");
+                 printf("3.  Afficher les moyennes generales par departement\n");
+                 printf("4.  Afficher le nombre total d'etudiants\n");
+                 printf("5.  Afficher le nombre d'etudiants par departement\n");
+                 printf("6.  Afficher les etudiants ayant une moyenne >= 10\n");
+                 printf("7.  Afficher le nombre d'etudiants ayant reussi par departement\n");
+                 scanf("%d",&ch);
+                switch(ch){
+                case 1 :
                 affiche_etudient_seuil();
                 break;
-            case 6:
+
+                case 2:
                 affiche_3_etudiants();
                 break;
-            case 7:
+                case 3:
                 moyenne_general_departament();
                 break;
-            case 8:
+                case 4:
                 afficher_nbr_etudient();
                 break;
-            case 9:
+                case 5:
                 affiche_nbr_etudient_departement();
                 break;
-            case 10:
+                case 6:
                 afficher_etudient_10();
                 break;
-            case 11:
+                case 7:
                 affiche_etudient_reussi();
                 break;
-            case 0:
-                return 0;
+                 }
+                 break;
+            case 6 :
+                 printf("Trier les etudients en ordre alphabetic A-Z\n");
+                 printf("Trier les etudients en ordre disalphabetic Z-A\n");
+                 printf("Trier les etudients par moyenne general \n");
+                 scanf("%d",ch);
+                 switch(ch){
+                 case 1 :
+                    tri_nom_AZ();
+                    break;
+                 case 2 :
+                    tri_nom_ZA();
+                    break;
+                 case 3 :
+                    tri_moyenne();
+                    break;
+
+                 }
+                    break;
             default:
                 printf("Choix invalide !\n");
                 break;
