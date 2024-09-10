@@ -21,7 +21,7 @@ int c=0;
 Etudient T[1000];
 
  void ajouter_etudient(){
-
+     int choise,a,m,j; float n;
      printf("Entrer L'ID  de L'etudient: ");
      scanf("%d",&T[c].id);
      printf("Entrer le nom de L'etudient : ");
@@ -30,15 +30,61 @@ Etudient T[1000];
      scanf("%[^\n]s",T[c].prenom);
      printf("Entrer la date de naissance  de L'etudient: ");
      printf("Entrer l'annee : ");
+     scanf("%d",&a);
+     do{
+         if(a<2007){
+            T[c].date_de_naissance.annee = a
+            }else {
+                printf("")
+
+            }
+
+
+     }while(a>2007)
      scanf("%d",&T[c].date_de_naissance.annee);
      printf("Entrer le mois : ");
      scanf("%d",&T[c].date_de_naissance.mois);
      printf("Entrer le jour : ");
      scanf("%d",&T[c].date_de_naissance.jour);
-     printf("Entrer la departement de L'etudient : ");
-     scanf("%[^\n]s",T[c].departement);
-     printf("Entrer la note general de l'etudient : ");
-     scanf("%f",&T[c].moyenne_general);
+     printf("Entrer la departement de L'etudient : 1- Math 2- Informatique 3- Economie 4-Comptabilite ");
+     scanf("%d",&choise);
+
+     do{
+
+        if(i==1){
+            strcpy(T[c].departement,"Math");
+        }
+        if(choise == 2){
+        strcpy(T[c].departement,"Informatique");
+     }
+     if (choise == 3){
+        strcpy(T[c].departement,"Economie");
+     }
+     if(choise == 4){
+        strcpy(T[c].departement,"Comptabilite");
+     }
+     else{
+        Printf("Entrer un nombre entre 1 et 4 ! \n");
+     }
+
+     }while(choise != 1 && choise != 2 && choise != 3 && choise != 1);
+
+        printf("Entrer la note general de l'etudient : ");
+        scanf("%f",&n);
+
+     do {
+            if(n>=0 && n<=20){
+                    T[c].moyenne_general = n;
+
+            }
+            else {
+                Printf("La moyenne general doit etre entre 0 et 20 !\n");
+                scanf("%f",&n);
+            }
+        scanf("%f",&T[c].moyenne_general);
+
+     }while(n<0 && n>20);
+
 
      c++;
  }
@@ -128,8 +174,11 @@ void supprimer_etudient(){
 
 
 
+
+
+
 int main()
 {
 
-    return 0;
+    return 0;
 }
