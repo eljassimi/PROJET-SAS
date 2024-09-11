@@ -81,6 +81,7 @@ void ajouter_etudient() {
             scanf("%d", &m);
         }
     } while (m < 1 || m > 12);
+    T[c].date_de_naissance.mois = m;
 
     printf("Entrer le jour : ");
     scanf("%d", &j);
@@ -494,6 +495,57 @@ void supprimercmd(){
    system("cls");
 }
 
+void recherche_nom(){
+    char nom_rechercher[50];
+    printf("Entrer le nom de l'etudient : ");
+    scanf("%[^/n]s",nom_rechercher);
+    for(int i=0;i<c;i++){
+        if(strcmp(T[i].nom,nom_rechercher)==0){
+            afficher_etudient(i);
+        }
+    }
+}
+void recherche_etudient_departement(){
+       int h;
+       printf("Choisisez la departement : 1- Math 2-Informatique 3-Economie 4-Comptabilite");
+       scanf("%d",&h);
+       if(h==1){
+            printf("les etudients de la departement Math\n");
+        for(int i=0;i<c;i++){
+            if(strcmp(T[i].departement,"Math")==0){
+                afficher_etudient(i);
+            }
+         }
+       }
+       if(h==2){
+           printf("les etudients de la departement Informatique\n");
+        for(int i=0;i<c;i++){
+            if(strcmp(T[i].departement,"Informatique")==0){
+                afficher_etudient(i);
+            }
+         }
+       }
+       if(h==3){
+           printf("les etudients de la departement Economie\n");
+        for(int i=0;i<c;i++){
+            if(strcmp(T[i].departement,"Economie")==0){
+                afficher_etudient(i);
+            }
+         }
+       }
+       if(h==4){
+           printf("les etudients de la departement Comptabilite\n");
+        for(int i=0;i<c;i++){
+            if(strcmp(T[i].departement,"Comtabilite")==0){
+                afficher_etudient(i);
+            }
+         }
+       }else{
+          printf("Departement introuvable \n");
+       }
+
+}
+
 int main() {
     int choix,ch;
 
@@ -505,6 +557,7 @@ int main() {
         printf("4.  Afficher tous les etudiants\n");
         printf("5.  Les Fonction de Statistique\n");
         printf("6.  Les Fonction de Triage\n");
+        printf("7.  Les Fonction de Recherche\n");
         printf("0. Quitter\n");
         printf("Entrez votre choix : ");
         scanf("%d", &choix);
@@ -574,6 +627,22 @@ int main() {
 
                  }
                     break;
+            case 7 :
+                 printf("1.  Rechercher etudient par nom\n");
+                 printf("2.  Rechercher et afficher les etudients par departement\n");
+                 printf("0- Quitter !");
+                 scanf("%d",&ch);
+                switch(ch){
+             case 1 :
+                   recherche_nom();
+                break;
+             case 2 :
+                 recherche_etudient_departement();
+                break;
+             case 0 :
+                break;
+                }
+                break;
                  case 0:
                     break;
             default:
