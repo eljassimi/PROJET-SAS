@@ -18,7 +18,7 @@ typedef struct {
 } Etudient;
 
 int c = 0;
-int choix, a, m, j, i;
+int choix, a, m, j, i,idd,existe;
 float n;
 Etudient T[1000];
 
@@ -37,8 +37,21 @@ int date_valide(int annee, int mois, int jour) {
 }
 
 void ajouter_etudient() {
-    printf("Entrer L'ID  de L'etudient: ");
-    scanf("%d", &T[c].id);
+
+    printf("Entrer le ID  de L'etudient: ");
+    scanf("%d", &idd);
+    do {
+        existe = 0;
+        for (i = 0; i < c; i++) {
+            if (T[i].id == idd) {
+                existe = 1;
+                printf("Le ID est deja existe ! Entrer un autre id: ");
+                scanf("%d", &idd);
+                break;
+            }
+        }
+    } while (existe==1);
+    T[c].id = idd;
 
     printf("Entrer le nom de L'etudient : ");
     scanf(" %[^\n]s", T[c].nom);
@@ -74,11 +87,13 @@ void ajouter_etudient() {
     do {
         if (date_valide(T[c].date_de_naissance.annee, T[c].date_de_naissance.mois, j)==1) {
             T[c].date_de_naissance.jour = j;
+            break;
         } else {
             printf("Le jour incorrect !\n");
             scanf("%d", &j);
         }
-    } while (!date_valide(T[c].date_de_naissance.annee, T[c].date_de_naissance.mois, j));
+    } while (date_valide(T[c].date_de_naissance.annee, T[c].date_de_naissance.mois, j)==0);
+    T[c].date_de_naissance.jour = j;
 
     printf("Entrer la departement de L'etudient : 1- Math 2- Informatique 3- Economie 4-Comptabilite ");
     scanf("%d", &choix);
@@ -134,20 +149,81 @@ void afficher_tout_etudient() {
 }
 
 void modifier_etudient() {
-    int d;
-    printf("Entrer l'id d'etudient a modifier : ");
-    scanf("%d", &d);
-    for (i = 0; i < c; i++) {
-        if (T[i].id == d) {
-            printf("Entrer le nouveau id : ");
-            scanf("%d", &T[i].id);
+      int d,cho,ddd,test=1;
 
-            printf("Entrer le nouveau nom : ");
-            scanf(" %[^\n]s", T[i].nom);
+      printf("Que ce que vous vouler modifier : \n");
+      printf("1- Modifier ID : \n");
+      printf("2- Modifier Nom : \n");
+      printf("3 -Modifier Prenom : \n");
+      printf("4- Modifier La date de naissnace : \n");
+      printf("5- Modifier La Departement : \n");
+      printf("6- Modifier La Note general: \n");
+      printf("0- Quitte ! \n");
+      scanf("%d",&cho);
 
-            printf("Entrer le nouveau prenom : ");
-            scanf(" %[^\n]s", T[i].prenom);
 
+      switch(cho){
+         case 1 :
+                printf("Entrer id de etudient a modifier : ");
+                scanf("%d",&d);
+                for(int i=0;i<c;i++){
+                if(T[i].id==d){
+                test = 0;
+                 printf("Entrer le nouveau ID  de L'etudient: ");
+                 scanf("%d", &ddd);
+                        do {
+                         existe = 0;
+                           for (int j = 0; j < c; j++) {
+                           if (T[j].id == ddd) {
+                           existe = 1;
+                           printf("Le ID est deja existe ! Entrer un autre id: ");
+                           scanf("%d", &ddd);
+                           break;
+                          }
+                        }
+                       } while (existe==1);
+                       T[i].id=ddd;
+                }
+                if(test==1){
+                    printf("Aucun etudient par ce id \n");
+                }
+                }
+                 break;
+
+         case 2 :
+                printf("Entrer id de etudient a modifier : ");
+                scanf("%d",&d);
+                for(int i=0;i<c;i++){
+                if(T[i].id==d){
+                    test=0;
+                printf("Entrer le nouveau nom : ");
+                scanf(" %[^\n]s", T[i].nom);
+               }
+               }
+                if(test==1){
+                printf("Aucun etudient par ce id \n");
+               }
+                break;
+         case 3 :
+                printf("Entrer id de etudient a modifier : ");
+                scanf("%d",&d);
+                for(int i=0;i<c;i++){
+                if(T[i].id==d){
+                        test=0;
+                printf("Entrer le nouveau prenom : ");
+                scanf(" %[^\n]s", T[i].prenom);
+                 }
+                }
+                if(test==1){
+                printf("Aucun etudient par ce id \n");
+                 }
+            break;
+         case 4 :
+                printf("Entrer id de etudient a modifier : ");
+                scanf("%d",&d);
+             for(int i=0;i<c;i++){
+              if(T[i].id==d){
+                    test=0;
             printf("Entrer la nouvelle date de naissance : ");
             printf("Entrer l'annee : ");
             scanf("%d", &a);
@@ -173,18 +249,30 @@ void modifier_etudient() {
 
             printf("Entrer le jour : ");
             scanf("%d", &j);
+
             do {
-                if (date_valide(T[i].date_de_naissance.annee, T[i].date_de_naissance.mois, j)) {
+                if (date_valide(T[i].date_de_naissance.annee, T[i].date_de_naissance.mois, j)==1) {
                     T[i].date_de_naissance.jour = j;
                 } else {
                     printf("Le jour incorrect !\n");
                     scanf("%d", &j);
                 }
-            } while (!date_valide(T[i].date_de_naissance.annee, T[i].date_de_naissance.mois, j));
-
-            printf("Entrer la departement de L'etudient : 1- Math 2- Informatique 3- Economie 4-Comptabilite ");
-            scanf("%d", &choix);
-            do {
+            } while (date_valide(T[i].date_de_naissance.annee, T[i].date_de_naissance.mois, j)==0);
+              }
+             }
+             if(test==1){
+                printf("Aucun etudient par ce id \n");
+                 }
+                 break;
+         case 5 :
+                printf("Entrer id de etudient a modifier : ");
+                scanf("%d",&d);
+                for(int i=0;i<c;i++){
+                if(T[i].id==d){
+                    test=0;
+                 printf("Entrer la departement de L'etudient : 1- Math 2- Informatique 3- Economie 4-Comptabilite ");
+                 scanf("%d", &choix);
+                do {
                 if (choix == 1) {
                     strcpy(T[i].departement, "Math");
                 } else if (choix == 2) {
@@ -197,7 +285,18 @@ void modifier_etudient() {
                     printf("Entrer un nombre entre 1 et 4 ! \n");
                 }
             } while (choix < 1 || choix > 4);
-
+              }
+            }
+            if(test==1){
+                printf("Aucun etudient par ce id \n");
+                 }
+                 break;
+         case 6 :
+                printf("Entrer id de etudient a modifier : ");
+                scanf("%d",&d);
+                for(int i=0;i<c;i++){
+              if(T[i].id==d){
+                    test=0;
             printf("Entrer la nouvelle note general : ");
             scanf("%f", &n);
             do {
@@ -208,9 +307,20 @@ void modifier_etudient() {
                     scanf("%f", &n);
                 }
             } while (n < 0 || n > 20);
+           }
+          }
+          if(test==1){
+                printf("Aucun etudient par ce id \n");
+                 }
+                 break;
+         case 0 :
+            break;
+
+         default :
+            printf("Aucun choix !");
         }
-    }
-}
+      }
+
 
 void supprimer_etudient() {
     int d;
@@ -384,7 +494,7 @@ void supprimercmd(){
 int main() {
     int choix,ch;
 
-    while (1) {
+    do{
         printf("Menu :\n");
         printf("1.  Ajouter des etudiants\n");
         printf("2.  Modifier un etudiant\n");
@@ -461,12 +571,14 @@ int main() {
 
                  }
                     break;
+                 case 0:
+                    break;
             default:
                 printf("Choix invalide !\n");
                 break;
         }
         supprimercmd();
-    }
+    }while(choix != 0);
 
     return 0;
 }
