@@ -37,9 +37,9 @@ Etudient T[1000] = {
 int date_valide(int annee, int mois, int jour) {
     if (mois < 1 || mois > 12 || jour < 1 || jour > 31) return 0;
     if (mois == 2) {
-        if (annee % 4 == 0 && (annee % 100 != 0 || annee % 400 == 0)) {
+        if (annee % 4 == 0 && (annee % 100 != 0 || annee % 400 == 0)){
             if (jour > 29) return 0;
-        } else {
+        }else {
             if (jour > 28) return 0;
         }
     } else if (mois == 4 || mois == 6 || mois == 9 || mois == 11) {
@@ -62,14 +62,14 @@ void ajouter_etudient() {
                 break;
             }
         }
-    } while (existe==1);
+    }while (existe==1);
     T[c].id = idd;
 
     printf("Entrer le nom de L'etudient : ");
-    scanf(" %[^\n]s", T[c].nom);
+    scanf(" %[^\n]", T[c].nom);
 
     printf("Entrer le Prenom de L'etudient : ");
-    scanf(" %[^\n]s", T[c].prenom);
+    scanf(" %[^\n]", T[c].prenom);
 
     printf("Entrer la date de naissance  de L'etudient: \n");
     printf("Entrer l'annee : ");
@@ -134,6 +134,7 @@ void ajouter_etudient() {
             scanf("%f", &n);
         }
     } while (n < 0 || n > 20);
+      T[c].moyenne_general = n;
     c++;
 }
 
@@ -148,6 +149,7 @@ void ajouter_des_etudients() {
 }
 
 void afficher_etudient(int indice) {
+    printf("\n************** L'etudient %d **************** \n",indice+1);
     printf("L'id d'etudient : %d\n", T[indice].id);
     printf("Le nom d'etudient : %s\n", T[indice].nom);
     printf("Le prenom d'etudient : %s\n", T[indice].prenom);
@@ -158,7 +160,6 @@ void afficher_etudient(int indice) {
 
 void afficher_tout_etudient() {
     for (int i = 0; i < c; i++) {
-        printf("\n************** L'etudient %d **************** \n",i+1);
         afficher_etudient(i);
     }
 }
@@ -182,10 +183,10 @@ void modifier_etudient() {
 
          case 1 :
                 for(int i=0;i<c;i++){
-                if(T[i].id==d){
+                if(T[i].id == d){
                     test=0;
                 printf("Entrer le nouveau nom : ");
-                scanf(" %[^\n]s", T[i].nom);
+                scanf(" %[^\n]", T[i].nom);
                }
                }
                 if(test==1){
@@ -199,7 +200,7 @@ void modifier_etudient() {
                 if(T[i].id==d){
                         test=0;
                 printf("Entrer le nouveau prenom : ");
-                scanf(" %[^\n]s", T[i].prenom);
+                scanf(" %[^\n]", T[i].prenom);
                  }
                 }
                 if(test==1){
@@ -257,9 +258,10 @@ void modifier_etudient() {
                 for(int i=0;i<c;i++){
                 if(T[i].id==d){
                     test=0;
-                 printf("Entrer la nouveau departement de L'etudient : 1- Math 2- Informatique 3- Economie 4-Comptabilite ");
-                 scanf("%d", &choix);
+                printf("Entrer la nouvelle departement de L'etudient : 1- Math 2- Informatique 3- Economie 4-Comptabilite ");
+
                 do {
+                scanf("%d", &choix);
                 if (choix == 1) {
                     strcpy(T[i].departement, "Math");
                 } else if (choix == 2) {
@@ -284,13 +286,13 @@ void modifier_etudient() {
               if(T[i].id==d){
                     test=0;
             printf("Entrer la nouvelle note general : ");
-            scanf("%f", &n);
+
             do {
+                scanf("%f", &n);
                 if (n >= 0 && n <= 20) {
                     T[i].moyenne_general = n;
                 } else {
                     printf("La moyenne general doit etre entre 0 et 20 !\n");
-                    scanf("%f", &n);
                 }
             } while (n < 0 || n > 20);
            }
@@ -304,6 +306,7 @@ void modifier_etudient() {
 
          default :
             printf("Aucun choix !");
+            break;
         }
       }
 
@@ -312,13 +315,13 @@ void supprimer_etudient(){
     int d,z;
     if(c>0){
         printf("Est ce que vous avez sur : 1- Oui  || 2- Non : ");
-    scanf("%d",&z);
-    if(z==1){
+       scanf("%d",&z);
+       if(z==1){
             printf("Entrer l'id d'etudient a supprimer : ");
             scanf("%d", &d);
-    for (i = 0; i < c; i++) {
-        if (T[i].id == d) {
-            for (int j = i; j < c - 1; j++) {
+          for (i = 0; i < c; i++) {
+            if (T[i].id == d) {
+              for (int j = i; j < c - 1; j++) {
                 T[j] = T[j + 1];
             }
         }
@@ -329,20 +332,21 @@ void supprimer_etudient(){
      printf("il ya aucun etudient dans luniversite\n");
   }
 }
-
+// Tri a bulle
 void tri_moyenne(){
     Etudient tmp;
     for (int i = 0; i < c - 1; i++) {
-        for (int j = i + 1; j < c; j++) {
-            if (T[i].moyenne_general < T[j].moyenne_general) {
-                tmp = T[i];
-                T[i] = T[j];
-                T[j] = tmp;
+        for (int j = 0; j < c-i-1; j++) {
+            if (T[j].moyenne_general < T[j+1].moyenne_general) {
+                tmp = T[j];
+                T[j] = T[j+1];
+                T[j+1] = tmp;
             }
         }
     }
 }
 
+// Tri par Selection
 void tri_nom_AZ(){
     Etudient tmp;
     for (int i = 0; i < c - 1; i++) {
@@ -356,18 +360,20 @@ void tri_nom_AZ(){
     }
 }
 
+// Tri par insertion
 void tri_nom_ZA(){
     Etudient tmp;
-    for (int i = 0; i < c - 1; i++) {
-        for (int j = i + 1; j < c; j++) {
-            if (strcmp(T[i].nom, T[j].nom) < 0) {
-                tmp = T[i];
-                T[i] = T[j];
-                T[j] = tmp;
+    for (int i = 1; i < c ; i++) {
+            tmp=T[i];
+            int j = i-1;
+       while(strcmp(tmp.nom,T[j].nom) > 0 && j>=0){
+             T[j+1]=T[j];
+             j--;
             }
+            T[j+1]=tmp;
         }
     }
-}
+
 
 void moyenne_general_departament() {
     float moyenne_math = 0, conteur_math = 0;
@@ -401,7 +407,7 @@ void moyenne_general_departament() {
 }
 
 void afficher_nbr_etudient() {
-    printf("Le nombre total d'etudiants dans l'université est : %d\n", c);
+    printf("Le nombre total d'etudiants dans l'universite est : %d\n", c);
 }
 
 void affiche_nbr_etudient_departement() {
@@ -479,6 +485,7 @@ void afficher_etudient_10() {
         }
     }
 }
+
 void supprimercmd(){
    system("pause");
    system("cls");
