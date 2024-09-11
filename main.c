@@ -17,10 +17,22 @@ typedef struct {
     float moyenne_general;
 } Etudient;
 
-int c = 0;
+int c = 10;
 int choix, a, m, j, i,idd,existe;
 float n;
-Etudient T[1000];
+
+Etudient T[1000] = {
+    {1, "hakimi", "achraf", {19, 7, 2000}, "Math", 14.5},
+    {2, "ziyech", "hakim", {12, 4, 2003}, "Informatique", 13.8},
+    {3, "ennasiry", "youssef", {1, 5, 1999}, "Economie", 9.3},
+    {4, "boufal", "soufiane", {20, 11, 1991}, "Comptabilite", 16.2},
+    {5, "taarabt", "adil", {25, 2, 1990}, "Math", 18.7},
+    {6, "amrabat", "nordin", {31, 8, 1987}, "Informatique", 17.5},
+    {7, "benatia", "medhi", {17, 4, 1987}, "Economie", 15.3},
+    {8, "masina", "oussama", {9, 5, 1994}, "Comptabilite", 17.8},
+    {9, "mazraoui", "nousair", {19, 7, 2000}, "Math", 14.0},
+    {10, "rahimi", "soufiane", {12, 3, 1993}, "Informatique", 16.1}
+};
 
 int date_valide(int annee, int mois, int jour) {
     if (mois < 1 || mois > 12 || jour < 1 || jour > 31) return 0;
@@ -155,12 +167,11 @@ void modifier_etudient() {
       int d,cho,ddd,test=1;
 
       printf("Que ce que vous vouler modifier : \n");
-      printf("1- Modifier ID : \n");
-      printf("2- Modifier Nom : \n");
-      printf("3 -Modifier Prenom : \n");
-      printf("4- Modifier La date de naissnace : \n");
-      printf("5- Modifier La Departement : \n");
-      printf("6- Modifier La Note general: \n");
+      printf("1- Modifier Nom : \n");
+      printf("2 -Modifier Prenom : \n");
+      printf("3- Modifier La date de naissnace : \n");
+      printf("4- Modifier La Departement : \n");
+      printf("5- Modifier La Note general: \n");
       printf("0- Quitte ! \n");
       scanf("%d",&cho);
 
@@ -168,32 +179,8 @@ void modifier_etudient() {
       scanf("%d",&d);
 
       switch(cho){
-         case 1 :
-                for(int i=0;i<c;i++){
-                if(T[i].id==d){
-                test = 0;
-                 printf("Entrer le nouveau ID  de L'etudient: ");
-                 scanf("%d", &ddd);
-                        do {
-                         existe = 0;
-                           for (int j = 0; j < c; j++) {
-                           if (T[j].id == ddd) {
-                           existe = 1;
-                           printf("Le ID est deja existe ! Entrer un autre id: ");
-                           scanf("%d", &ddd);
-                           break;
-                          }
-                        }
-                       } while (existe==1);
-                       T[i].id=ddd;
-                }
-                if(test==1){
-                    printf("Aucun etudient par ce id \n");
-                }
-                }
-                 break;
 
-         case 2 :
+         case 1 :
                 for(int i=0;i<c;i++){
                 if(T[i].id==d){
                     test=0;
@@ -205,7 +192,8 @@ void modifier_etudient() {
                 printf("Aucun etudient par ce id \n");
                }
                 break;
-         case 3 :
+
+         case 2 :
 
                 for(int i=0;i<c;i++){
                 if(T[i].id==d){
@@ -218,7 +206,8 @@ void modifier_etudient() {
                 printf("Aucun etudient par ce id \n");
                  }
             break;
-         case 4 :
+
+         case 3 :
 
              for(int i=0;i<c;i++){
               if(T[i].id==d){
@@ -263,7 +252,7 @@ void modifier_etudient() {
                 printf("Aucun etudient par ce id \n");
                  }
                  break;
-         case 5 :
+         case 4 :
 
                 for(int i=0;i<c;i++){
                 if(T[i].id==d){
@@ -289,7 +278,7 @@ void modifier_etudient() {
                 printf("Aucun etudient par ce id \n");
                  }
                  break;
-         case 6 :
+         case 5 :
 
                 for(int i=0;i<c;i++){
               if(T[i].id==d){
@@ -498,7 +487,7 @@ void supprimercmd(){
 void recherche_nom(){
     char nom_rechercher[50];
     printf("Entrer le nom de l'etudient : ");
-    scanf("%[^/n]s",nom_rechercher);
+    scanf("%s", nom_rechercher);
     for(int i=0;i<c;i++){
         if(strcmp(T[i].nom,nom_rechercher)==0){
             afficher_etudient(i);
@@ -540,8 +529,6 @@ void recherche_etudient_departement(){
                 afficher_etudient(i);
             }
          }
-       }else{
-          printf("Departement introuvable \n");
        }
 
 }
@@ -630,19 +617,19 @@ int main() {
             case 7 :
                  printf("1.  Rechercher etudient par nom\n");
                  printf("2.  Rechercher et afficher les etudients par departement\n");
-                 printf("0- Quitter !");
+                 printf("0- Quitter !\n");
                  scanf("%d",&ch);
                 switch(ch){
-             case 1 :
+                  case 1 :
                    recherche_nom();
-                break;
-             case 2 :
-                 recherche_etudient_departement();
-                break;
-             case 0 :
-                break;
-                }
-                break;
+                  break;
+                  case 2 :
+                   recherche_etudient_departement();
+                  break;
+                   case 0 :
+                  break;
+                  }
+                  break;
                  case 0:
                     break;
             default:
