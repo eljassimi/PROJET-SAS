@@ -59,7 +59,7 @@ void ajouter_etudient() {
     printf("Entrer le Prenom de L'etudient : ");
     scanf(" %[^\n]s", T[c].prenom);
 
-    printf("Entrer la date de naissance  de L'etudient: ");
+    printf("Entrer la date de naissance  de L'etudient: \n");
     printf("Entrer l'annee : ");
     scanf("%d", &a);
     do {
@@ -129,6 +129,7 @@ void ajouter_des_etudients() {
     int m;
     scanf("%d", &m);
     for (int i = 0; i < m; i++) {
+        printf("************** Ajouter L'etudient %d **************** \n",i+1);
         ajouter_etudient();
     }
 }
@@ -144,6 +145,7 @@ void afficher_etudient(int indice) {
 
 void afficher_tout_etudient() {
     for (int i = 0; i < c; i++) {
+        printf("\n************** L'etudient %d **************** \n",i+1);
         afficher_etudient(i);
     }
 }
@@ -161,11 +163,11 @@ void modifier_etudient() {
       printf("0- Quitte ! \n");
       scanf("%d",&cho);
 
+      printf("Entrer id de etudient a modifier : ");
+      scanf("%d",&d);
 
       switch(cho){
          case 1 :
-                printf("Entrer id de etudient a modifier : ");
-                scanf("%d",&d);
                 for(int i=0;i<c;i++){
                 if(T[i].id==d){
                 test = 0;
@@ -191,8 +193,6 @@ void modifier_etudient() {
                  break;
 
          case 2 :
-                printf("Entrer id de etudient a modifier : ");
-                scanf("%d",&d);
                 for(int i=0;i<c;i++){
                 if(T[i].id==d){
                     test=0;
@@ -205,8 +205,7 @@ void modifier_etudient() {
                }
                 break;
          case 3 :
-                printf("Entrer id de etudient a modifier : ");
-                scanf("%d",&d);
+
                 for(int i=0;i<c;i++){
                 if(T[i].id==d){
                         test=0;
@@ -219,8 +218,7 @@ void modifier_etudient() {
                  }
             break;
          case 4 :
-                printf("Entrer id de etudient a modifier : ");
-                scanf("%d",&d);
+
              for(int i=0;i<c;i++){
               if(T[i].id==d){
                     test=0;
@@ -265,12 +263,11 @@ void modifier_etudient() {
                  }
                  break;
          case 5 :
-                printf("Entrer id de etudient a modifier : ");
-                scanf("%d",&d);
+
                 for(int i=0;i<c;i++){
                 if(T[i].id==d){
                     test=0;
-                 printf("Entrer la departement de L'etudient : 1- Math 2- Informatique 3- Economie 4-Comptabilite ");
+                 printf("Entrer la nouveau departement de L'etudient : 1- Math 2- Informatique 3- Economie 4-Comptabilite ");
                  scanf("%d", &choix);
                 do {
                 if (choix == 1) {
@@ -292,8 +289,7 @@ void modifier_etudient() {
                  }
                  break;
          case 6 :
-                printf("Entrer id de etudient a modifier : ");
-                scanf("%d",&d);
+
                 for(int i=0;i<c;i++){
               if(T[i].id==d){
                     test=0;
@@ -322,19 +318,26 @@ void modifier_etudient() {
       }
 
 
-void supprimer_etudient() {
-    int d;
-    printf("Entrer l'id d'etudient a supprimer : ");
-    scanf("%d", &d);
+void supprimer_etudient(){
+    int d,z;
+    if(c>0){
+        printf("Est ce que vous avez sur : 1- Oui  || 2- Non : ");
+    scanf("%d",&z);
+    if(z==1){
+            printf("Entrer l'id d'etudient a supprimer : ");
+            scanf("%d", &d);
     for (i = 0; i < c; i++) {
         if (T[i].id == d) {
             for (int j = i; j < c - 1; j++) {
                 T[j] = T[j + 1];
             }
-            c--;
-            break;
         }
     }
+    c--;
+    }
+  }else{
+     printf("il ya aucun etudient dans luniversite\n");
+  }
 }
 
 void tri_moyenne(){
@@ -554,10 +557,10 @@ int main() {
                  }
                  break;
             case 6 :
-                 printf("Trier les etudients en ordre alphabetic A-Z\n");
-                 printf("Trier les etudients en ordre disalphabetic Z-A\n");
-                 printf("Trier les etudients par moyenne general \n");
-                 scanf("%d",ch);
+                 printf("1- Trier les etudients en ordre alphabetic A-Z\n");
+                 printf("2- Trier les etudients en ordre disalphabetic Z-A\n");
+                 printf("3- Trier les etudients par moyenne general \n");
+                 scanf("%d",&ch);
                  switch(ch){
                  case 1 :
                     tri_nom_AZ();
