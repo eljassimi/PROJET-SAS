@@ -360,19 +360,21 @@ void tri_nom_AZ(){
     }
 }
 
-// Tri par insertion
-void tri_nom_ZA(){
+// tri insertion
+void tri_nom_ZA() {
     Etudient tmp;
-   for (int i = 0; i < c - 1; i++) {
-        for (int j = i + 1; j < c; j++) {
-            if (strcmp(T[i].nom, T[j].nom) < 0) {
-                tmp = T[i];
-                T[i] = T[j];
-                T[j] = tmp;
-            }
+    for (int i = 1; i < c; i++) {
+        tmp = T[i];
+        int j = i - 1;
+
+        while (j >= 0 && strcmp(T[j].nom, tmp.nom) < 0) {
+            T[j + 1] = T[j];
+            j--;
         }
+        T[j + 1] = tmp;
     }
 }
+
 
 void moyenne_general_departament() {
     float moyenne_math = 0, conteur_math = 0;
